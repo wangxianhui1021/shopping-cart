@@ -9,6 +9,11 @@ class Product extends Model
 
 {
 
+      public function hasLowStock(){
 
+
+
+      	
+      }
 
 }
