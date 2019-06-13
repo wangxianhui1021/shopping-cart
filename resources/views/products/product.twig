@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
        <div class="row">
                <div class="col-md-4">
 
@@ -27,7 +28,14 @@
                <p>{{product.description}}</p>
 
                {% if product.inStock() %}
-               <a role="button" class="btn btn-primary" href="">Add to cart </a>
+               <a role="button" class="btn btn-primary" href="{{path_for('cart.add', 
+
+                     {slug:product.slug, 
+                     quantity: 1 }
+
+               )
+
+               }}">Add to cart </a>
                {% endif %}
 
                </div>
