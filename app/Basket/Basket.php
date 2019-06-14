@@ -109,7 +109,44 @@ use Cart\Basket\Exceptions\QuantityExceededException;
        	 return count($this->storage);
        }
 
+       
+      public function subTotal(){
+
+        $total = 0;
+
+        foreach($this->all() as $item){
+
+          if($item->outOfStock()){
+
+            continue;
+          }
+
+          $total = $total + ($item->price * $item->quantity);
 
 
+          
+        }
+
+        return $total; 
+      }
+
+       public function refresh(){
+
+            foreach($this->all() as $item){
+
+              if(!$item->hasStock($item->quantity)){
+                
+                $this->update($item, $item->stock);
+
+              }else if($item->hasStock(1) && $item->quantity===0){
+                   
+                   $this->update($item, 1);
+              }
+
+
+            }
+
+
+       }
 
    }

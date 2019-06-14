@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Cart\Models\Product;
 use Slim\Router;
 use Cart\Basket\Basket;
+use Cart\Basket\Exceptions\QuantityExceededException;
 
 
 class CartController{
@@ -28,7 +29,7 @@ class CartController{
 	public function index(Request $request, Response $response, Twig $view)
 
 	{
-		
+		$this->basket->refresh();
 
 	return $view->render($response, 'cart/index.twig');	
 	

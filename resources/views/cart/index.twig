@@ -1,1 +1,108 @@
-{{basket.all() | json_encode}}
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+
+     <div class="row">
+          
+         <h3>
+         	Cart Details
+         </h3>
+
+
+     </div>
+
+      <div class= "row d-flex">
+
+
+
+          <div class= "col-md-8">
+          	
+
+                 {% if basket.itemCount %}
+
+                   <div class="well">
+
+                         <table class="table">
+                         	    <thead>
+                         	    	<th>
+                         	    		Product
+                         	    	</th>
+
+
+                         	    	<th>
+                         	    		Price
+                         	    	</th>
+
+                         	    	<th>
+                         	    		Quantity
+                         	    	</th>
+                         	    </thead>
+
+                         	    <tbody>
+                         	    	{% for item in basket.all %}
+                                         
+                                         <tr>
+
+                                             <td>
+                                             	<a href="{{path_for('product.get', {slug:item.slug})}}">{{item.title}} </a>
+                                             </td>
+                                             <td>
+                                             	$ {{item.price}}
+                                             </td>
+                                             <td>
+                                             	{{item.quantity}}
+                                             	
+                                             </td>
+                                         </tr>
+
+                                     {% endfor %}
+
+                         	    </tbody>
+                         </table>
+                   </div>
+              {% else%}
+
+                      <p>You have no items in your cart <a href="{{path_for('home')}}">Start shopping</a></p>
+       
+               {% endif %}
+
+          </div>
+
+
+               
+
+
+          <div class="col-md-4">
+          	
+               {% if basket.itemCount and basket.subTotal %}
+                        <div class="well">
+                        
+                               <h4>Summary</h4>
+
+                               <hr>
+
+
+                               {% include 'cart/partials/summary.twig' %}
+
+                               <a href="#" class="btn btn-warning">Checkout</a>
+
+
+
+                        </div>
+
+
+               {% endif %}
+
+          </div>
+
+          
+
+      
+      </div>	
+
+
+
+
+
+{% endblock %}
